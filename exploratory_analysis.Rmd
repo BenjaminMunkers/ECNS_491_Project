@@ -101,5 +101,37 @@ df = finance %>%
 **Data Visualization**
 
 ```{r}
+library(ggplot2)
+library(tidyverse)
+library(dplyr)
+rm(list = ls())
+# set working directory to this file location by going to Session > Set Working Directory > To Source File Location
+wd = paste(getwd(), "/Data/", sep = "")
+load(paste(wd, "finalcleaned.RData", sep = ""))
+
+ggplot(data = df, aes(x = datetime)) +
+  geom_line(aes(y = seattle_temp), color = "darkmagenta") +
+  geom_line(aes(y = chicago_temp), color = "darkred") +
+  geom_line(aes(y = nyc_temp), color = "steelblue")
+
+ggplot(data = df, aes(x = datetime)) +
+  geom_line(aes(y = seattle_cloudcover), color = "darkmagenta") +
+  geom_line(aes(y = chicago_cloudcover), color = "darkred") +
+  geom_line(aes(y = nyc_cloudcover), color = "steelblue")
+
+ggplot(data = df, aes(x = datetime)) +
+  geom_line(aes(y = seattle_precipcover), color = "darkmagenta") +
+  geom_line(aes(y = chicago_precipcover), color = "darkred") +
+  geom_line(aes(y = nyc_precipcover), color = "steelblue")
+
+for(i in length(df[,1])){
+  df$seattle_gotprecip = ifelse(df$seattle_precip > 0,1,0)
+  df$chicago_gotprecip = ifelse(df$chicago_precip > 0,1,0)
+  df$nyc_gotprecip = ifelse(df$nyc_precip > 0,1,0)
+}
+df %>% 
+  mean(chicago_gotprecip) %>% 
+  mean(seattle_gotprecip) %>% 
+  mean(nyc_gotprecip)
 
 ```
