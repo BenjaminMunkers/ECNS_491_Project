@@ -13,9 +13,11 @@ library(lubridate)
 library(stringr)
 library(readxl)
 ```
+
 **Data Wrangling/Cleaning**
 
 ***Loading in Data***
+
 ```{r}
 # changing the wd to knit the document
 # comment out as needed
@@ -40,4 +42,41 @@ chicago = read_csv("Chicago 2020-10-12 to 2022-10-12.csv")
 
 # loading in New York City weather data
 nyc = read_csv("New York City 2020-10-12 to 2022-10-12.csv")
+```
+
+***Joining Data Into One Tidy Data Frame***
+
+Starting by selecting only weather variables we care about for the analysis:
+
+-   Temperature (using average 'feels like' temperature)
+-   Precipitation
+-   Precipitation cover
+-   Cloud cover
+
+```{r}
+### Selecting weather variables
+# Seattle
+seattle = seattle %>%
+  select(datetime, feelslike, precip, precipcover, cloudcover)
+colnames(seattle) = c("datetime", "seattle_temp", "seattle_precip", "seattle_precipcover", "seattle_cloudcover")
+
+# Chicago
+chicago = chicago %>%
+  select(datetime, feelslike, precip, precipcover, cloudcover)
+colnames(chicago) = c("datetime", "chicago_temp", "chicago_precip", "chicago_precipcover", "chicago_cloudcover")
+# NYC
+nyc = nyc %>%
+  select(datetime, feelslike, precip, precipcover, cloudcover)
+colnames(nyc) = c("datetime", "nyc_temp", "nyc_precip", "nyc_precipcover", "nyc_cloudcover")
+```
+
+Merging data frames together
+```{r}
+### creating weather df
+weather = seattle %>% 
+  left_join(chicago, by = "datetime")
+  
+weather = weather %>%
+  left_join(nyc, by = "datetime")
+
 ```
