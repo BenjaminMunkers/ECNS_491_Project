@@ -3,7 +3,7 @@ library(dplyr)
 library(lubridate)
 library(stringr)
 library(readxl)
-
+rm(list = ls())
 # changing the wd to knit the document
 # comment out as needed
 #wd2 = "C:/Fall 22/ECNS 491/course_proj/ECNS_491_Project/Data"
@@ -21,6 +21,10 @@ dow = read_csv("dowjones.csv")
 ### Weather data
 # loading in Seattle weather data
 seattle = read_csv("seattle 2020-10-12 to 2022-10-12.csv")
+# Seattle had temp in C instead of F
+for(i in 1:nrow(seattle)){
+  seattle[i,8] = seattle[i,8]*9/5 + 32
+}
 
 # loading in Chicago weather data
 chicago = read_csv("Chicago 2020-10-12 to 2022-10-12.csv")
