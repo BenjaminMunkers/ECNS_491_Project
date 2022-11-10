@@ -98,3 +98,8 @@ df = finance %>%
   left_join(weather, by = "datetime")
 ```
 
+**Data Visualization**
+Merging data frames together
+```{r}
+
+```
