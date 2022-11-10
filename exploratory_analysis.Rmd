@@ -149,5 +149,17 @@ for(i in 12:nrow(df)){
   df$nyc_macloud[i] = mean(df$nyc_cloudcover[i-11:i])
   df$nyc_matemp[i] = mean(df$nyc_temp[i-11:i])
 }
+df1 = df
+for(i in 1:11){df1 = df1[-1,]}
+# regraphes with the moving average
+ggplot(data = df1, aes(x = datetime)) +
+  geom_line(aes(y = seattle_matemp), color = "darkmagenta") +
+  geom_line(aes(y = chicago_matemp), color = "darkred") +
+  geom_line(aes(y = nyc_matemp), color = "steelblue")
+
+ggplot(data = df1, aes(x = datetime)) +
+  geom_line(aes(y = seattle_macloud), color = "darkmagenta") +
+  geom_line(aes(y = chicago_macloud), color = "darkred") +
+  geom_line(aes(y = nyc_macloud), color = "steelblue")
 
 ```
