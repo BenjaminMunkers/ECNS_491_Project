@@ -6,8 +6,8 @@ library(readxl)
 
 # changing the wd to knit the document
 # comment out as needed
-wd2 = "C:/Fall 22/ECNS 491/course_proj/ECNS_491_Project/Data"
-setwd(wd2)
+#wd2 = "C:/Fall 22/ECNS 491/course_proj/ECNS_491_Project/Data"
+#setwd(wd2)
 
 ### Financial data
 # loading in nasdaq data and selecting close price and date
@@ -50,6 +50,14 @@ weather = seattle %>%
 weather = weather %>%
   left_join(nyc, by = "datetime")
 
+# avg temp variable
+weather = weather %>%
+  mutate(
+    temp = mean(seattle_temp, chicago_temp, nyc_temp)
+  )
+
+weather$temp = mean(weather$seattle_temp, weather$chicago_temp, weather$nyc_temp)
+
 ### creating financial df
 # date variables
 nasdaq$Date = ymd(nasdaq$Date)
@@ -67,6 +75,9 @@ finance = nasdaq %>%
 # only care about weather observations on trading days
 df = finance %>%
   left_join(weather, by = "datetime")
+
+
+
 
 ### saving dataset
 save(df, file = "finalcleaned.RData")
