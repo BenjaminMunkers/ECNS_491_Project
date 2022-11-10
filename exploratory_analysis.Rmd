@@ -15,12 +15,14 @@ library(readxl)
 ```
 **Data Wrangling/Cleaning**
 
+***Loading in Data***
 ```{r}
 # changing the wd to knit the document
 # comment out as needed
 wd2 = "C:/Fall 22/ECNS 491/course_proj/ECNS_491_Project/Data"
 setwd(wd2)
 
+### Financial data
 # loading in nasdaq data and selecting close price and date
 nasdaq = read_csv("^IXIC.csv")
 nasdaq = nasdaq %>%
@@ -28,4 +30,14 @@ nasdaq = nasdaq %>%
 
 # loading in dow jones data
 dow = read_csv("dowjones.csv")
+
+### Weather data
+# loading in Seattle weather data
+seattle = read_csv("seattle 2020-10-12 to 2022-10-12.csv")
+
+# loading in Chicago weather data
+chicago = read_csv("Chicago 2020-10-12 to 2022-10-12.csv")
+
+# loading in New York City weather data
+nyc = read_csv("New York City 2020-10-12 to 2022-10-12.csv")
 ```
