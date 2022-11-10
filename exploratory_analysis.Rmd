@@ -79,4 +79,16 @@ weather = seattle %>%
 weather = weather %>%
   left_join(nyc, by = "datetime")
 
+### creating financial df
+# date variables
+nasdaq$Date = ymd(nasdaq$Date)
+dow$date = mdy(dow$date)
+
+# column names
+colnames(nasdaq) = c("datetime", "nasdaq")
+colnames(dow) = c("datetime", "dow_jones")
+
+# merging 
+finance = nasdaq %>%
+  left_join(dow, by = "datetime")
 ```
