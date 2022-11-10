@@ -88,7 +88,13 @@ dow$date = mdy(dow$date)
 colnames(nasdaq) = c("datetime", "nasdaq")
 colnames(dow) = c("datetime", "dow_jones")
 
-# merging 
+# merging finance
 finance = nasdaq %>%
   left_join(dow, by = "datetime")
+
+### merging weather and finance into one df
+# only care about weather observations on trading days
+df = finance %>%
+  left_join(weather, by = "datetime")
 ```
+
