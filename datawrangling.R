@@ -1,24 +1,9 @@
----
-title: "Stage 2: Draft Exploratory Analysis"
-author: "Kade Aldrich"
-date: '2022-11-10'
-output: pdf_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(dplyr)
 library(lubridate)
 library(stringr)
 library(readxl)
-```
 
-**Data Wrangling/Cleaning**
-
-***Loading in Data***
-
-```{r}
 # changing the wd to knit the document
 # comment out as needed
 wd2 = "C:/Fall 22/ECNS 491/course_proj/ECNS_491_Project/Data"
@@ -42,18 +27,7 @@ chicago = read_csv("Chicago 2020-10-12 to 2022-10-12.csv")
 
 # loading in New York City weather data
 nyc = read_csv("New York City 2020-10-12 to 2022-10-12.csv")
-```
 
-***Joining Data Into One Tidy Data Frame***
-
-Starting by selecting only weather variables we care about for the analysis:
-
--   Temperature (using average 'feels like' temperature)
--   Precipitation
--   Precipitation cover
--   Cloud cover
-
-```{r}
 ### Selecting weather variables
 # Seattle
 seattle = seattle %>%
@@ -68,14 +42,11 @@ colnames(chicago) = c("datetime", "chicago_temp", "chicago_precip", "chicago_pre
 nyc = nyc %>%
   select(datetime, feelslike, precip, precipcover, cloudcover)
 colnames(nyc) = c("datetime", "nyc_temp", "nyc_precip", "nyc_precipcover", "nyc_cloudcover")
-```
 
-Merging data frames together
-```{r}
 ### creating weather df
 weather = seattle %>% 
   left_join(chicago, by = "datetime")
-  
+
 weather = weather %>%
   left_join(nyc, by = "datetime")
 
@@ -96,10 +67,6 @@ finance = nasdaq %>%
 # only care about weather observations on trading days
 df = finance %>%
   left_join(weather, by = "datetime")
-```
 
-**Data Visualization**
-
-```{r}
-
-```
+### saving dataset
+save(df, file = "finalcleaned.RData")
