@@ -1,0 +1,31 @@
+---
+title: "Stage 2: Draft Exploratory Analysis"
+author: "Kade Aldrich"
+date: '2022-11-10'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(lubridate)
+library(stringr)
+library(readxl)
+```
+**Data Wrangling/Cleaning**
+
+```{r}
+# changing the wd to knit the document
+# comment out as needed
+wd2 = "C:/Fall 22/ECNS 491/course_proj/ECNS_491_Project/Data"
+setwd(wd2)
+
+# loading in nasdaq data and selecting close price and date
+nasdaq = read_csv("^IXIC.csv")
+nasdaq = nasdaq %>%
+  select(Date, Close)
+
+# loading in dow jones data
+dow = read_csv("dowjones.csv")
+```
