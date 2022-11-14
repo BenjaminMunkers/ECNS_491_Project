@@ -5,6 +5,9 @@ library(stringr)
 library(readxl)
 rm(list = ls())
 
+# setting directory to data folder
+wd2 = paste(getwd(), "/Data", sep = "")
+
 ### Financial data
 # loading in nasdaq data and selecting close price and date
 nasdaq = read_csv("^IXIC.csv")
