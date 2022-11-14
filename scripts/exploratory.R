@@ -1,3 +1,4 @@
+rm(list = ls())
 library(tidyverse)
 library(dplyr)
 library(lubridate)
@@ -6,33 +7,26 @@ library(readxl)
 library(ggplot2)
 
 # changing the wd to knit the document
-# comment out as needed
-#wd2 = "C:/Fall 22/ECNS 491/course_proj/ECNS_491_Project/Data"
-#setwd(wd2)
+# set working directory to this file location by going to Session > Set Working Directory > To Source File Location
+# wd = paste(getwd(), "/Data/", sep = "")
+wd = str_remove(getwd(), "/scripts")
 
-# loading in final cleaned dataframe
-load("finalcleaned.RData")
+# loading in data frame
+load(paste(wd, "/Data/", "finalcleaned.RData", sep = ""))
 
 ### making visualizations
-library(ggplot2)
-library(tidyverse)
-library(dplyr)
-rm(list = ls())
-# set working directory to this file location by going to Session > Set Working Directory > To Source File Location
-wd = paste(getwd(), "/Data/", sep = "")
-load(paste(wd, "finalcleaned.RData", sep = ""))
 #initial temp 
-ggplot(data = df, aes(x = datetime)) +
+temp_plot1 = ggplot(data = df, aes(x = datetime)) +
   geom_line(aes(y = seattle_temp), color = "darkmagenta") +
   geom_line(aes(y = chicago_temp), color = "darkred") +
   geom_line(aes(y = nyc_temp), color = "steelblue")
 #cloud cover
-ggplot(data = df, aes(x = datetime)) +
+cloud_plot1 = ggplot(data = df, aes(x = datetime)) +
   geom_line(aes(y = seattle_cloudcover), color = "darkmagenta") +
   geom_line(aes(y = chicago_cloudcover), color = "darkred") +
   geom_line(aes(y = nyc_cloudcover), color = "steelblue")
 #and precipitation coverage graphs
-ggplot(data = df, aes(x = datetime)) +
+precip_plot1 = ggplot(data = df, aes(x = datetime)) +
   geom_line(aes(y = seattle_precipcover), color = "darkmagenta") +
   geom_line(aes(y = chicago_precipcover), color = "darkred") +
   geom_line(aes(y = nyc_precipcover), color = "steelblue")
