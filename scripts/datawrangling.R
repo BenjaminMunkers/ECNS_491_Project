@@ -4,10 +4,6 @@ library(lubridate)
 library(stringr)
 library(readxl)
 rm(list = ls())
-# changing the wd to knit the document
-# comment out as needed
-#wd2 = "C:/Fall 22/ECNS 491/course_proj/ECNS_491_Project/Data"
-#setwd(wd2)
 
 ### Financial data
 # loading in nasdaq data and selecting close price and date
