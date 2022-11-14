@@ -3,10 +3,10 @@ library(dplyr)
 library(lubridate)
 library(stringr)
 library(readxl)
-rm(list = ls())
 
 # setting directory to data folder
-wd2 = paste(getwd(), "/Data", sep = "")
+wd = str_replace(getwd(), "scripts", "Data")
+setwd(wd)
 
 ### Financial data
 # loading in nasdaq data and selecting close price and date
@@ -78,9 +78,6 @@ finance = nasdaq %>%
 # only care about weather observations on trading days
 df = finance %>%
   left_join(weather, by = "datetime")
-
-
-
 
 ### saving dataset
 save(df, file = "finalcleaned.RData")
