@@ -69,22 +69,37 @@ ma_temp_plot = ggplot(data = df1, aes(x = datetime)) +
   geom_line(aes(y = chicago_matemp), color = "darkred") +
   geom_line(aes(y = nyc_matemp), color = "steelblue") + 
   ggtitle("Mean Average of Tempurature") + 
-  labs(subtitle = "Over Time")
+  labs(subtitle = "Over Time") + 
+  xlab("Date") + 
+  ylab("Degrees Fahrenheit")
 # and for cloud cover
 ma_cloud_plot = ggplot(data = df1, aes(x = datetime)) +
   geom_line(aes(y = seattle_macloud), color = "darkmagenta") +
   geom_line(aes(y = chicago_macloud), color = "darkred") +
   geom_line(aes(y = nyc_macloud), color = "steelblue") + 
   ggtitle("Mean Average of Cloud Cover") + 
-  labs(subtitle = "Over Time")
+  labs(subtitle = "Over Time") + 
+  xlab("Date") + 
+  ylab("Percent Cloud Cover")
 
-### Findings
-# graphing indices 
+### graphing indices 
+# dow jones
 dow_plot = ggplot(data = df1, aes(x = datetime)) + 
-  geom_line(aes(y = dow_jones), color = "darkgreen") + 
+  geom_line(aes(y = dow_jones), color = "green") + 
   ggtitle("Dow Jones Index") + 
-  labs(subtitle = "Over Time")
+  labs(subtitle = "Over Time") + 
+  xlab("Date") + 
+  ylab("US Dollars")
 
+# nasdaq
+ndaq_plot = ggplot(data = df1, aes(x = datetime)) + 
+  geom_line(aes(y = nasdaq), color = "green") + 
+  ggtitle("NASDAQ Index") + 
+  labs(subtitle = "Over Time") + 
+  xlab("Date") + 
+  ylab("US Dollars")
+
+### exploring uncharted territory
 # comparing index plot to ma temp plot
-ma_temp_plot + dow_plot
+ndaq_plot + ma_temp_plot + dow_plot
 
