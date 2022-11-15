@@ -4,9 +4,6 @@ author: "Kade Aldrich, Benjamin Munkers"
 date: '2022-11-10'
 output: pdf_document
 ---
-```{r include = FALSE}
-source("main.R")
-```
 
 **Introduction**
 
@@ -17,6 +14,7 @@ We set out to see how weather in the financial hubs of the United States might a
 The first step of processing the data was to only select the closing price of the Dow Jones and NASDAQ in order to get a consistent measure of the two. Then, we bound the two together to get a data frame of our two financial indicators along with the associated dates. After this, we created a unique weather data frame for each city and only took measurements from 10/12/2020 to 10/12/2022. Similarly to the financial data frame, we bound these three together into one data frame. Each measurement of the weather was split into three different columns, one for each city. This was so that we didn't have repeating dates and could graph them more like time series data. The final step of processing the data was to combine the financial and weather data frames into one final data frame. We did this by left joining the financial data frame to the weather data frame. This cut out the observations of weather variables that did not fall on a trading day but made it so we did not have any NA observations of either the Dow Jones or the NASDAQ. 
 
 **Findings**
+
 After we processed the data and consolidated it into one data frame, it was time to begin the exploratory analysis. The first relationship we wanted to investigate was the effect of temperature for each city on the Dow Jones Industrial Average. Our first try at this yielded no real results as it was impossible to glean any relation.
 
 ```{r}
