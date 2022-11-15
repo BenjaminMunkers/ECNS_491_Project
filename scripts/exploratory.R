@@ -63,12 +63,12 @@ df1 = df
 for(i in 1:11){df1 = df1[-1,]}
 # regraphes with the moving average
 # for temp
-ggplot(data = df1, aes(x = datetime)) +
+ma_temp_plot = ggplot(data = df1, aes(x = datetime)) +
   geom_line(aes(y = seattle_matemp), color = "darkmagenta") +
   geom_line(aes(y = chicago_matemp), color = "darkred") +
   geom_line(aes(y = nyc_matemp), color = "steelblue")
 # and for cloud cover
-ggplot(data = df1, aes(x = datetime)) +
+ma_cloud_plot = ggplot(data = df1, aes(x = datetime)) +
   geom_line(aes(y = seattle_macloud), color = "darkmagenta") +
   geom_line(aes(y = chicago_macloud), color = "darkred") +
   geom_line(aes(y = nyc_macloud), color = "steelblue")
