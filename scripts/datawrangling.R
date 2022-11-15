@@ -79,5 +79,30 @@ finance = nasdaq %>%
 df = finance %>%
   left_join(weather, by = "datetime")
 
+### create seasonal variables for 2021
+fall = vector(mode = "numeric", length = nrow(df))
+df$fall = fall
+summer = vector(mode = "numeric", length = nrow(df))
+df$summer = summer
+spring = vector(mode = "numeric", length = nrow(df))
+df$spring = spring
+winter = vector(mode = "numeric", length = nrow(df))
+df$winter = winter
+
+for (i in 1:nrow(df)) {
+  if (df$datetime[i] >= ymd("2021-09-22") && df$datetime[i] < ymd("2021-12-21")) {
+    df$fall[i] = 1
+  }
+  if (df$datetime[i] >= ymd("2021-12-21") && df$datetime[i] < ymd("2022-03-20")) {
+    df$winter[i] = 1
+  }
+  if (df$datetime[i] >= ymd("2021-03-20") && df$datetime[i] < ymd("2021-06-20")) {
+    df$spring[i] = 1
+  }
+  if (df$datetime[i] > ymd("2021-06-20") && df$datetime[i] < ymd("2021-09-22")) {
+    df$summer[i] = 1
+  }
+}
+
 ### saving dataset
 save(df, file = "finalcleaned.RData")
