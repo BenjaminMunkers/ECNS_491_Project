@@ -106,3 +106,52 @@ ma_temp_plot + dow_plot
 # comparing ndaq plot to ma temp plot
 ma_temp_plot + ndaq_plot
 
+## graphing based on season
+# separating data by season
+df_fall = df %>%
+  filter(df$fall == 1)
+df_spring = df %>%
+  filter(df$spring == 1)
+df_winter = df %>%
+  filter(df$winter == 1)
+df_summer = df %>%
+  filter(df$summer == 1)
+
+# seasonal comparisons
+# spring temp on Dow Jones
+dow_plot_spring = ggplot(data = df_spring, aes(x = datetime)) + 
+  geom_line(aes(y = dow_jones), color = "green") + 
+  ggtitle("Dow Jones Index") + 
+  labs(subtitle = "Spring 2021") + 
+  xlab("Date") + 
+  ylab("US Dollars")
+
+ma_temp_plot_spring = ggplot(data = df_spring, aes(x = datetime)) +
+  geom_line(aes(y = seattle_matemp), color = "darkmagenta") +
+  geom_line(aes(y = chicago_matemp), color = "darkred") +
+  geom_line(aes(y = nyc_matemp), color = "steelblue") + 
+  ggtitle("Mean Average of Tempurature") + 
+  labs(subtitle = "Spring 2021") + 
+  xlab("Date") + 
+  ylab("Degrees Fahrenheit")
+
+# fall temp on Dow Jones
+dow_plot_fall = ggplot(data = df_fall, aes(x = datetime)) + 
+  geom_line(aes(y = dow_jones), color = "green") + 
+  ggtitle("Dow Jones Index") + 
+  labs(subtitle = "Fall 2021") + 
+  xlab("Date") + 
+  ylab("US Dollars")
+
+ma_temp_plot_fall = ggplot(data = df_fall, aes(x = datetime)) +
+  geom_line(aes(y = seattle_matemp), color = "darkmagenta") +
+  geom_line(aes(y = chicago_matemp), color = "darkred") +
+  geom_line(aes(y = nyc_matemp), color = "steelblue") + 
+  ggtitle("Mean Average of Tempurature") + 
+  labs(subtitle = "Fall 2021") + 
+  xlab("Date") + 
+  ylab("Degrees Fahrenheit")
+
+
+
+

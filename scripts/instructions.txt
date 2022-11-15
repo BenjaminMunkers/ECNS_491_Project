@@ -1,0 +1,1 @@
+datawrangling.r is where we pull in and clean the data and exploratory.r is where we do all of the analysis. Main allows the user to run everything from one place.
