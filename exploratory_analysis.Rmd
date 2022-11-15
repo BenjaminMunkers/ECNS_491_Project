@@ -1,6 +1,6 @@
 ---
 title: "Stage 2: Draft Exploratory Analysis"
-author: "Kade Aldrich"
+author: "Kade Aldrich, Benjamin Munkers"
 date: '2022-11-10'
 output: pdf_document
 ---
@@ -14,89 +14,4 @@ library(stringr)
 library(readxl)
 ```
 
-**Data Wrangling/Cleaning**
-
-***Loading in Data***
-
-```{r}
-# changing the wd to knit the document
-# comment out as needed
-wd2 = "C:/Fall 22/ECNS 491/course_proj/ECNS_491_Project/Data"
-setwd(wd2)
-
-### Financial data
-# loading in nasdaq data and selecting close price and date
-nasdaq = read_csv("^IXIC.csv")
-nasdaq = nasdaq %>%
-  select(Date, Close)
-
-# loading in dow jones data
-dow = read_csv("dowjones.csv")
-
-### Weather data
-# loading in Seattle weather data
-seattle = read_csv("seattle 2020-10-12 to 2022-10-12.csv")
-
-# loading in Chicago weather data
-chicago = read_csv("Chicago 2020-10-12 to 2022-10-12.csv")
-
-# loading in New York City weather data
-nyc = read_csv("New York City 2020-10-12 to 2022-10-12.csv")
-```
-
-***Joining Data Into One Tidy Data Frame***
-
-Starting by selecting only weather variables we care about for the analysis:
-
--   Temperature (using average 'feels like' temperature)
--   Precipitation
--   Precipitation cover
--   Cloud cover
-
-```{r}
-### Selecting weather variables
-# Seattle
-seattle = seattle %>%
-  select(datetime, feelslike, precip, precipcover, cloudcover)
-colnames(seattle) = c("datetime", "seattle_temp", "seattle_precip", "seattle_precipcover", "seattle_cloudcover")
-
-# Chicago
-chicago = chicago %>%
-  select(datetime, feelslike, precip, precipcover, cloudcover)
-colnames(chicago) = c("datetime", "chicago_temp", "chicago_precip", "chicago_precipcover", "chicago_cloudcover")
-# NYC
-nyc = nyc %>%
-  select(datetime, feelslike, precip, precipcover, cloudcover)
-colnames(nyc) = c("datetime", "nyc_temp", "nyc_precip", "nyc_precipcover", "nyc_cloudcover")
-```
-
-Merging data frames together
-```{r}
-### creating weather df
-weather = seattle %>% 
-  left_join(chicago, by = "datetime")
-  
-weather = weather %>%
-  left_join(nyc, by = "datetime")
-
-### creating financial df
-# date variables
-nasdaq$Date = ymd(nasdaq$Date)
-dow$date = mdy(dow$date)
-
-# column names
-colnames(nasdaq) = c("datetime", "nasdaq")
-colnames(dow) = c("datetime", "dow_jones")
-
-# merging finance
-finance = nasdaq %>%
-  left_join(dow, by = "datetime")
-
-### merging weather and finance into one df
-# only care about weather observations on trading days
-df = finance %>%
-  left_join(weather, by = "datetime")
-```
-
-**Data Visualization**
 
