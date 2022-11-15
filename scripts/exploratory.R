@@ -100,6 +100,9 @@ ndaq_plot = ggplot(data = df1, aes(x = datetime)) +
   ylab("US Dollars")
 
 ### exploring uncharted territory
-# comparing index plot to ma temp plot
-ndaq_plot + ma_temp_plot + dow_plot
+# comparing dow plot to ma temp plot
+ma_temp_plot + dow_plot
+
+# comparing ndaq plot to ma temp plot
+ma_temp_plot + ndaq_plot
 
