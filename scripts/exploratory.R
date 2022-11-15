@@ -18,17 +18,17 @@ load(paste(wd, "/Data/", "finalcleaned.RData", sep = ""))
 ### making visualizations
 #initial temp 
 temp_plot1 = ggplot(data = df, aes(x = datetime)) +
-  geom_line(aes(y = seattle_temp), color = "darkmagenta") +
+  geom_line(aes(y = seattle_temp), color = "magenta") +
   geom_line(aes(y = chicago_temp), color = "darkred") +
   geom_line(aes(y = nyc_temp), color = "steelblue")
 #cloud cover
 cloud_plot1 = ggplot(data = df, aes(x = datetime)) +
-  geom_line(aes(y = seattle_cloudcover), color = "darkmagenta") +
+  geom_line(aes(y = seattle_cloudcover), color = "magenta") +
   geom_line(aes(y = chicago_cloudcover), color = "darkred") +
   geom_line(aes(y = nyc_cloudcover), color = "steelblue")
 #and precipitation coverage graphs
 precip_plot1 = ggplot(data = df, aes(x = datetime)) +
-  geom_line(aes(y = seattle_precipcover), color = "darkmagenta") +
+  geom_line(aes(y = seattle_precipcover), color = "magenta") +
   geom_line(aes(y = chicago_precipcover), color = "darkred") +
   geom_line(aes(y = nyc_precipcover), color = "steelblue")
 #sets precipitation to has it or doesn't
@@ -65,7 +65,7 @@ for(i in 1:11){df1 = df1[-1,]}
 # regraphes with the moving average
 # for temp
 ma_temp_plot = ggplot(data = df1, aes(x = datetime)) +
-  geom_line(aes(y = seattle_matemp), color = "darkmagenta") +
+  geom_line(aes(y = seattle_matemp), color = "magenta") +
   geom_line(aes(y = chicago_matemp), color = "darkred") +
   geom_line(aes(y = nyc_matemp), color = "steelblue") + 
   ggtitle("Mean Average of Tempurature") + 
@@ -74,7 +74,7 @@ ma_temp_plot = ggplot(data = df1, aes(x = datetime)) +
   ylab("Degrees Fahrenheit")
 # and for cloud cover
 ma_cloud_plot = ggplot(data = df1, aes(x = datetime)) +
-  geom_line(aes(y = seattle_macloud), color = "darkmagenta") +
+  geom_line(aes(y = seattle_macloud), color = "magenta") +
   geom_line(aes(y = chicago_macloud), color = "darkred") +
   geom_line(aes(y = nyc_macloud), color = "steelblue") + 
   ggtitle("Mean Average of Cloud Cover") + 
