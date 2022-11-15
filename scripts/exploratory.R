@@ -5,6 +5,7 @@ library(lubridate)
 library(stringr)
 library(readxl)
 library(ggplot2)
+library(patchwork)
 
 # changing the wd to knit the document
 # set working directory to this file location by going to Session > Set Working Directory > To Source File Location
@@ -66,11 +67,24 @@ for(i in 1:11){df1 = df1[-1,]}
 ma_temp_plot = ggplot(data = df1, aes(x = datetime)) +
   geom_line(aes(y = seattle_matemp), color = "darkmagenta") +
   geom_line(aes(y = chicago_matemp), color = "darkred") +
-  geom_line(aes(y = nyc_matemp), color = "steelblue")
+  geom_line(aes(y = nyc_matemp), color = "steelblue") + 
+  ggtitle("Mean Average of Tempurature") + 
+  labs(subtitle = "Over Time")
 # and for cloud cover
 ma_cloud_plot = ggplot(data = df1, aes(x = datetime)) +
   geom_line(aes(y = seattle_macloud), color = "darkmagenta") +
   geom_line(aes(y = chicago_macloud), color = "darkred") +
-  geom_line(aes(y = nyc_macloud), color = "steelblue")
+  geom_line(aes(y = nyc_macloud), color = "steelblue") + 
+  ggtitle("Mean Average of Cloud Cover") + 
+  labs(subtitle = "Over Time")
 
+### Findings
+# graphing indices 
+dow_plot = ggplot(data = df1, aes(x = datetime)) + 
+  geom_line(aes(y = dow_jones), color = "darkgreen") + 
+  ggtitle("Dow Jones Index") + 
+  labs(subtitle = "Over Time")
+
+# comparing index plot to ma temp plot
+ma_temp_plot + dow_plot
 
