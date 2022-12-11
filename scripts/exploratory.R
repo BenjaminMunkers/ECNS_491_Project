@@ -20,22 +20,37 @@ load(paste(wd, "/Data/", "finalcleaned.RData", sep = ""))
 temp_plot1 = ggplot(data = df, aes(x = datetime)) +
   geom_line(aes(y = seattle_temp), color = "magenta") +
   geom_line(aes(y = chicago_temp), color = "darkred") +
-  geom_line(aes(y = nyc_temp), color = "steelblue")
+  geom_line(aes(y = nyc_temp), color = "steelblue") +
+  geom_smooth(aes(y = nyc_temp),span = 0.3, color = "steelblue") +
+  geom_smooth(aes(y = chicago_temp),span = 0.3, color = "darkred") +
+  geom_smooth(aes(y = seattle_temp),span = 0.3, color = "magenta")
 #cloud cover
 cloud_plot1 = ggplot(data = df, aes(x = datetime)) +
   geom_line(aes(y = seattle_cloudcover), color = "magenta") +
   geom_line(aes(y = chicago_cloudcover), color = "darkred") +
-  geom_line(aes(y = nyc_cloudcover), color = "steelblue")
+  geom_line(aes(y = nyc_cloudcover), color = "steelblue") + 
+  geom_smooth(aes(y = nyc_cloudcover),span = 0.3, color = "steelblue") +
+  geom_smooth(aes(y = chicago_cloudcover),span = 0.3, color = "darkred") +
+  geom_smooth(aes(y = seattle_cloudcover),span = 0.3, color = "magenta")
 #and precipitation coverage graphs
 precip_plot1 = ggplot(data = df, aes(x = datetime)) +
   geom_line(aes(y = seattle_precipcover), color = "magenta") +
   geom_line(aes(y = chicago_precipcover), color = "darkred") +
-  geom_line(aes(y = nyc_precipcover), color = "steelblue")
+  geom_line(aes(y = nyc_precipcover), color = "steelblue") +
+  geom_smooth(aes(y = nyc_precipcover),span = 0.3, color = "steelblue") +
+  geom_smooth(aes(y = chicago_precipcover),span = 0.3, color = "darkred") +
+  geom_smooth(aes(y = seattle_precipcover),span = 0.3, color = "magenta")
+#Finds the change in temperature for each city
+df = df %>% 
+  mutate(chicago_delta_temp = chicago_temp - lag(chicago_temp)) %>% 
+  mutate(nyc_delta_temp = nyc_temp - lag(nyc_temp)) %>%
+  mutate(seattle_delta_temp = seattle_temp - lag(seattle_temp))
 #sets precipitation to has it or doesn't
 for(i in length(df[,1])){
   df$seattle_gotprecip = ifelse(df$seattle_precip > 0,1,0)
   df$chicago_gotprecip = ifelse(df$chicago_precip > 0,1,0)
   df$nyc_gotprecip = ifelse(df$nyc_precip > 0,1,0)
+  
 }
 #finds on average how often it rains
 precip_chi = mean(df$chicago_gotprecip)
@@ -151,7 +166,6 @@ ma_temp_plot_fall = ggplot(data = df_fall, aes(x = datetime)) +
   labs(subtitle = "Fall 2021") + 
   xlab("Date") + 
   ylab("Degrees Fahrenheit")
-
 
 
 
