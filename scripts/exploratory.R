@@ -32,7 +32,7 @@ temp_plot1 = ggplot(data = df, aes(x = datetime)) +
   ggtitle("Tempurature of US Financial Centers")
 #cloud cover
 cloud_plot1 = ggplot(data = df, aes(x = datetime)) +
-  geom_line(aes(y = seattle_cloudcover, color = "Seattle"), alpha = 0.3) +
+  geom_line(aes(y = seattle_cloudcover, color = "Seattle"), alpha = 1) +
   geom_line(aes(y = chicago_cloudcover, color = "Chicago"), alpha = 0.3) +
   geom_line(aes(y = nyc_cloudcover, color = "NYC"), alpha = 0.3) + 
   geom_smooth(aes(y = nyc_cloudcover),span = 0.3, color = "steelblue") +
@@ -46,14 +46,18 @@ cloud_plot1 = ggplot(data = df, aes(x = datetime)) +
   ggtitle("Cloud Cover over US Financial Centers")
 #and precipitation coverage graphs
 precip_plot1 = ggplot(data = df, aes(x = datetime)) +
-  geom_line(aes(y = seattle_precipcover), color = "magenta") +
-  geom_line(aes(y = chicago_precipcover), color = "darkred") +
-  geom_line(aes(y = nyc_precipcover), color = "steelblue") +
+  geom_line(aes(y = seattle_precipcover, color = "Seattle"), alpha = 1) +
+  geom_line(aes(y = chicago_precipcover, color = "Chicago"), alpha = 0.5) +
+  geom_line(aes(y = nyc_precipcover, color = "NYC"), alpha = 0.5) +
   geom_smooth(aes(y = nyc_precipcover),span = 0.3, color = "steelblue") +
   geom_smooth(aes(y = chicago_precipcover),span = 0.3, color = "darkred") +
   geom_smooth(aes(y = seattle_precipcover),span = 0.3, color = "magenta") +
   xlab("Date") +
-  ylab("Percent Precipitation Cover")
+  ylab("Percent Precipitation Cover") +
+  scale_color_manual(name = "City", values = c("Seattle" = "magenta", 
+                                               "Chicago" = "darkred",
+                                               "NYC" = "steelblue")) + 
+  ggtitle("Precipitation Cover over US Financial Centers")
 #Finds the change in temperature for each city and percent daily change in stock price
 df = df %>% 
   mutate(chicago_delta_temp = chicago_temp - lag(chicago_temp)) %>% 
