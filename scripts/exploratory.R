@@ -18,14 +18,18 @@ load(paste(wd, "/Data/", "finalcleaned.RData", sep = ""))
 ### making visualizations
 #initial temp 
 temp_plot1 = ggplot(data = df, aes(x = datetime)) +
-  geom_line(aes(y = seattle_temp), color = "magenta") +
-  geom_line(aes(y = chicago_temp), color = "darkred") +
-  geom_line(aes(y = nyc_temp), color = "steelblue") +
+  geom_line(aes(y = seattle_temp, color = "Seattle")) +
+  geom_line(aes(y = chicago_temp, color = "Chicago")) +
+  geom_line(aes(y = nyc_temp, color = "NYC")) +
   geom_smooth(aes(y = nyc_temp),span = 0.3, color = "steelblue") +
   geom_smooth(aes(y = chicago_temp),span = 0.3, color = "darkred") +
   geom_smooth(aes(y = seattle_temp),span = 0.3, color = "magenta") +
   xlab("Date") +
-  ylab("Temperature")
+  ylab("Temperature (F)") + 
+  scale_color_manual(name = "City", values = c("Seattle" = "magenta", 
+                                               "Chicago" = "darkred",
+                                               "NYC" = "steelblue")) + 
+  ggtitle("Tempurature of US Financial Centers")
 #cloud cover
 cloud_plot1 = ggplot(data = df, aes(x = datetime)) +
   geom_line(aes(y = seattle_cloudcover), color = "magenta") +
