@@ -1,0 +1,16 @@
+---
+title: "image_test"
+author: "Kade Aldrich"
+date: '2022-12-11'
+output: html_document
+---
+
+```{r echo = FALSE, out.width = "100%"}
+library(imager)
+
+smilewd = paste(getwd(), "/Images/smiley.jpg", sep = "")
+
+smiley = load.image(smilewd)
+plot(smiley, axes = FALSE)
+```
+
