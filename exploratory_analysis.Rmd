@@ -5,10 +5,6 @@ date: '2022-11-10'
 output: pdf_document
 ---
 
-```{r echo = FALSE, fig.align='center', out.width = '100%'}
-knitr::include_graphics("Images/tempxdow.png")
-```
-
 **Introduction**
 
 An endless number of variables effect the condition of the stock market. We set out to determine a relationship between the stock market and just one of those variables. If the day-to-day emotions of traders, analysts, portfolio managers and otherwise in major financial centers are affected by the weather, that effect might be noticeable with the right visualizations. To do this, we used two years worth of historical data detailing weather data from New York City, Chicago, and Seattle. The variables measured were mean temperature, precipitation, precipitation cover, and cloud cover. We paired this with data on the Dow Jones and NASDAQ from the same period. 
@@ -23,7 +19,9 @@ After processing our data we took a look into our variables and the relation the
 
 **Findings**
 
-The temperature 
+```{r echo = FALSE, fig.align='center', out.width = '100%'}
+knitr::include_graphics("Images/tempxdow.png")
+```
 
 The next thought we had was to see if this relationship presented itself through the seasons. The idea behind this was that in Spring, the temperatures are rising which might make people happier and companies more productive. We created 4 seasonal factor variables for the spring of 2021 through the winter of 2021/22. There seems to be a very strong relationship in the trend of the Dow Jones and the trend of temperature for the three cities. It is extremely likely that there are many unaccounted for factors which promote economic growth in the spring so this is not a rock-solid takeaway. Never the less, it could warrant more attention.
 
