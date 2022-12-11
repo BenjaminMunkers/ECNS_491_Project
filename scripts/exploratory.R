@@ -233,4 +233,9 @@ stocks = c("Dow Jones", "NASDAQ","Dow Jones", "NASDAQ","Dow Jones", "NASDAQ")
 cities = c("Seattle", "Seattle", "Chicago", "Chicago", "New York City", "New York City")
 heatmap = data.frame(stocks, cities,value)
 ggplot(heatmap, aes(stocks, cities, fill = value)) +
-  geom_tile()
+  geom_tile() + 
+  geom_text(aes(label = value)) +
+  ggtitle("Frequency of Overlapping Extreme Values") +
+  scale_fill_gradient("Frequency",low = "orange", high = "red") + 
+  xlab("Stocks") + 
+  ylab("Cities")
