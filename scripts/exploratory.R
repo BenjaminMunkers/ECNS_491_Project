@@ -32,14 +32,18 @@ temp_plot1 = ggplot(data = df, aes(x = datetime)) +
   ggtitle("Tempurature of US Financial Centers")
 #cloud cover
 cloud_plot1 = ggplot(data = df, aes(x = datetime)) +
-  geom_line(aes(y = seattle_cloudcover), color = "magenta") +
-  geom_line(aes(y = chicago_cloudcover), color = "darkred") +
-  geom_line(aes(y = nyc_cloudcover), color = "steelblue") + 
+  geom_line(aes(y = seattle_cloudcover, color = "Seattle"), alpha = 0.3) +
+  geom_line(aes(y = chicago_cloudcover, color = "Chicago"), alpha = 0.3) +
+  geom_line(aes(y = nyc_cloudcover, color = "NYC"), alpha = 0.3) + 
   geom_smooth(aes(y = nyc_cloudcover),span = 0.3, color = "steelblue") +
   geom_smooth(aes(y = chicago_cloudcover),span = 0.3, color = "darkred") +
   geom_smooth(aes(y = seattle_cloudcover),span = 0.3, color = "magenta") +
   xlab("Date") +
-  ylab("Percent Cloud Cover")
+  ylab("Percent Cloud Cover") +
+  scale_color_manual(name = "City", values = c("Seattle" = "magenta", 
+                                               "Chicago" = "darkred",
+                                               "NYC" = "steelblue")) + 
+  ggtitle("Cloud Cover over US Financial Centers")
 #and precipitation coverage graphs
 precip_plot1 = ggplot(data = df, aes(x = datetime)) +
   geom_line(aes(y = seattle_precipcover), color = "magenta") +
