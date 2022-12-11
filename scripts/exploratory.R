@@ -214,5 +214,18 @@ nasdaq_delta = ggplot(data = df, aes(x = datetime)) +
   ylab("Daily Change") +
   geom_smooth(aes(y = nasdaq_delta),method = lm, se = TRUE)
 
-cut_off = quantile(df$dow_jones_delta, na.rm = T, probs = .75)
+df$dow_extreme = ifelse(df$dow_jones_delta > quantile(df$dow_jones_delta, na.rm = T, probs = .75) | df$dow_jones_delta < quantile(df$dow_jones_delta, na.rm = T, probs = .25),1,0)
+df$nasdaq_extreme = ifelse(df$nasdaq_delta > quantile(df$nasdaq_delta, na.rm = T, probs = .75) | df$nasdaq_delta < quantile(df$nasdaq_delta, na.rm = T, probs = .25),1,0)
+df$chicago_extreme = ifelse(df$chicago_delta_temp > quantile(df$chicago_delta_temp, na.rm = T, probs = .75) | df$chicago_delta_temp < quantile(df$chicago_delta_temp, na.rm = T, probs = .25),1,0)
+df$seattle_extreme = ifelse(df$seattle_delta_temp > quantile(df$seattle_delta_temp, na.rm = T, probs = .75) | df$seattle_delta_temp < quantile(df$seattle_delta_temp, na.rm = T, probs = .25),1,0)
+df$nyc_extreme = ifelse(df$nyc_delta_temp > quantile(df$nyc_delta_temp, na.rm = T, probs = .75) | df$nyc_delta_temp < quantile(df$nyc_delta_temp, na.rm = T, probs = .25),1,0)
+tempdf = df %>% 
+  select(dow_extreme,nasdaq_extreme,seattle_extreme,chicago_extreme,nyc_extreme)
+
+sXdj = table(tempdf$dow_extreme, tempdf$seattle_extreme)[4]
+sXnas = table(tempdf$nasdaq_extreme, tempdf$seattle_extreme)[4]
+cXdj = table(tempdf$dow_extreme, tempdf$chicago_extreme)[4]
+cXnas = table(tempdf$nasdaq_extreme, tempdf$chicago_extreme)[4]
+nycXdj = table(tempdf$dow_extreme, tempdf$nyc_extreme)[4]
+nycXnas = table(tempdf$nasdaq_extreme, tempdf$nyc_extreme)[4]
 
