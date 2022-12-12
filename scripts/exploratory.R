@@ -242,7 +242,7 @@ heatmap = data.frame(stocks, cities,value)
 heat_map_extreme = ggplot(heatmap, aes(stocks, cities, fill = round(value, digits =  4)*100)) +
   geom_tile() + 
   geom_text(aes(label = round(value, digits = 4)*100)) +
-  ggtitle("Frequency of Overlapping Extreme Values for Temperature and Stock Price") +
+  labs(title = "Frequency of Overlapping Extreme Values for Temperature and Stock Price", subtitle = "Mixed extreme values") +
   scale_fill_gradient("Frequency as %",low = "orange", high = "red") + 
   xlab("Stocks") + 
   ylab("Cities")
@@ -269,7 +269,7 @@ heatmap = data.frame(stocks, cities,value)
 heat_map_highs = ggplot(heatmap, aes(stocks, cities, fill = round(value, digits =  4)*100)) +
   geom_tile() + 
   geom_text(aes(label = round(value, digits = 4)*100)) +
-  ggtitle("Frequency of Overlapping Extreme Values for Temperature and Stock Price") +
+  labs(title = "Frequency of Overlapping Extreme Values for Temperature and Stock Price", subtitle = "Matching high values") +
   scale_fill_gradient("Frequency as %",low = "orange", high = "red") + 
   xlab("Stocks") + 
   ylab("Cities")
@@ -296,7 +296,7 @@ heatmap = data.frame(stocks, cities,value)
 heat_map_lows = ggplot(heatmap, aes(stocks, cities, fill = round(value, digits =  4)*100)) +
   geom_tile() + 
   geom_text(aes(label = round(value, digits = 4)*100)) +
-  ggtitle("Frequency of Overlapping Extreme Values for Temperature and Stock Price") +
+  labs(title = "Frequency of Overlapping Extreme Values for Temperature and Stock Price", subtitle = "Matching low values") +
   scale_fill_gradient("Frequency as %",low = "deepskyblue", high = "yellow") + 
   xlab("Stocks") + 
   ylab("Cities")
