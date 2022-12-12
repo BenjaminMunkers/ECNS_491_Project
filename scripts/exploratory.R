@@ -206,14 +206,16 @@ ma_temp_plot_fall = ggplot(data = df_fall, aes(x = datetime)) +
 # New graphs on daily changes
 dow_delta = ggplot(data = df, aes(x = datetime)) + 
   geom_line(aes(y = dow_jones_delta), color = "purple") +
+  geom_hline(yintercept = quantile(df$dow_jones_delta, na.rm = T, probs = .9), linetype = "dashed", color = "black") +
   xlab("Date") +
-  ylab("Daily Change")
+  ylab("Daily Change") +
+  ggtitle("Dow Jones Daily Change")
 nasdaq_delta = ggplot(data = df, aes(x = datetime)) + 
   geom_line(aes(y = nasdaq_delta), color = "purple") +
   xlab("Date") +
   ylab("Daily Change") +
-  geom_smooth(aes(y = nasdaq_delta),method = lm, se = TRUE)
-
+  ggtitle("NASDAQ Daily Change")
+# Very Gross way to make a heat map
 df$dow_extreme = ifelse(df$dow_jones_delta > quantile(df$dow_jones_delta, na.rm = T, probs = .90) | df$dow_jones_delta < quantile(df$dow_jones_delta, na.rm = T, probs = .10),1,0)
 df$nasdaq_extreme = ifelse(df$nasdaq_delta > quantile(df$nasdaq_delta, na.rm = T, probs = .90) | df$nasdaq_delta < quantile(df$nasdaq_delta, na.rm = T, probs = .10),1,0)
 df$chicago_extreme = ifelse(df$chicago_delta_temp > quantile(df$chicago_delta_temp, na.rm = T, probs = .90) | df$chicago_delta_temp < quantile(df$chicago_delta_temp, na.rm = T, probs = .10),1,0)
@@ -221,21 +223,24 @@ df$seattle_extreme = ifelse(df$seattle_delta_temp > quantile(df$seattle_delta_te
 df$nyc_extreme = ifelse(df$nyc_delta_temp > quantile(df$nyc_delta_temp, na.rm = T, probs = .90) | df$nyc_delta_temp < quantile(df$nyc_delta_temp, na.rm = T, probs = .10),1,0)
 tempdf = df %>% 
   select(dow_extreme,nasdaq_extreme,seattle_extreme,chicago_extreme,nyc_extreme)
+sum(tempdf$nasdaq_extreme, na.rm = T)
 
-value = c(table(tempdf$dow_extreme, tempdf$seattle_extreme)[4])
-value = append(value, table(tempdf$nasdaq_extreme, tempdf$seattle_extreme)[4])
-value = append(value, table(tempdf$dow_extreme, tempdf$chicago_extreme)[4])
-value = append(value, table(tempdf$nasdaq_extreme, tempdf$chicago_extreme)[4])
-value = append(value, table(tempdf$dow_extreme, tempdf$nyc_extreme)[4])
-value = append(value, table(tempdf$nasdaq_extreme, tempdf$nyc_extreme)[4])
+value = c(table(tempdf$dow_extreme, tempdf$seattle_extreme)[4] /sum(tempdf$nasdaq_extreme, na.rm = T))
+value = append(value, table(tempdf$nasdaq_extreme, tempdf$seattle_extreme)[4] /sum(tempdf$nasdaq_extreme, na.rm = T))
+value = append(value, table(tempdf$dow_extreme, tempdf$chicago_extreme)[4] /sum(tempdf$nasdaq_extreme, na.rm = T))
+value = append(value, table(tempdf$nasdaq_extreme, tempdf$chicago_extreme)[4] /sum(tempdf$nasdaq_extreme, na.rm = T))
+value = append(value, table(tempdf$dow_extreme, tempdf$nyc_extreme)[4] /sum(tempdf$nasdaq_extreme, na.rm = T))
+value = append(value, table(tempdf$nasdaq_extreme, tempdf$nyc_extreme)[4] /sum(tempdf$nasdaq_extreme, na.rm = T))
 
 stocks = c("Dow Jones", "NASDAQ","Dow Jones", "NASDAQ","Dow Jones", "NASDAQ")
 cities = c("Seattle", "Seattle", "Chicago", "Chicago", "New York City", "New York City")
 heatmap = data.frame(stocks, cities,value)
-ggplot(heatmap, aes(stocks, cities, fill = value)) +
+ggplot(heatmap, aes(stocks, cities, fill = round(value, digits =  4)*100)) +
   geom_tile() + 
-  geom_text(aes(label = value)) +
+  geom_text(aes(label = round(value, digits = 4)*100)) +
   ggtitle("Frequency of Overlapping Extreme Values") +
-  scale_fill_gradient("Frequency",low = "orange", high = "red") + 
+  scale_fill_gradient("Frequency as %",low = "orange", high = "red") + 
   xlab("Stocks") + 
   ylab("Cities")
+
+  
