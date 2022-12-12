@@ -19,9 +19,14 @@ After processing our data we took a look into our variables and the relation the
 
 **Findings**
 
+Below is the plot of temperature in US Financial Centers alongside the plot of the Dow Jones Index from October 12th, 2020 to October 11th, 2022. The temperature plot shows both the daily average temperature observations for each city as well as the smoothed line of those observations for each city while plot of the Dow Jones Index is that of the raw, observed daily close observations.
+
 ```{r echo = FALSE, fig.align='center', out.width = '100%'}
 knitr::include_graphics("Images/tempxdow.png")
 ```
+
+Comparing these graphs side by side eliminated the idea that their was an obvious correlation between the two. Overall, the temperature plot fluxuates predictably through the seasons with no clear trend. The Dow Jones plot did not follow this yearly trajectory and instead, trended upwards for the first year and downwards for the second. It was likely that this movement could be explained by the nature of the Covid-19 and post Covid-19 economies. Regardless, there was no visual relationships between temperature in US Financial Centers and the Dow Jones Index.
+
 
 The next thought we had was to see if this relationship presented itself through the seasons. The idea behind this was that in Spring, the temperatures are rising which might make people happier and companies more productive. We created 4 seasonal factor variables for the spring of 2021 through the winter of 2021/22. There seems to be a very strong relationship in the trend of the Dow Jones and the trend of temperature for the three cities. It is extremely likely that there are many unaccounted for factors which promote economic growth in the spring so this is not a rock-solid takeaway. Never the less, it could warrant more attention.
 
