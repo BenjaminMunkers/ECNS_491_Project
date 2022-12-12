@@ -218,6 +218,7 @@ nasdaq_delta = ggplot(data = df, aes(x = datetime)) +
   xlab("Date") +
   ylab("Daily Change") +
   ggtitle("NASDAQ Daily Change")
+
 # Very Gross way to make a heat map
 df$dow_extreme = ifelse(df$dow_jones_delta > quantile(df$dow_jones_delta, na.rm = T, probs = .90) | df$dow_jones_delta < quantile(df$dow_jones_delta, na.rm = T, probs = .10),1,0)
 df$nasdaq_extreme = ifelse(df$nasdaq_delta > quantile(df$nasdaq_delta, na.rm = T, probs = .90) | df$nasdaq_delta < quantile(df$nasdaq_delta, na.rm = T, probs = .10),1,0)
@@ -238,11 +239,65 @@ value = append(value, table(tempdf$nasdaq_extreme, tempdf$nyc_extreme)[4] /sum(t
 stocks = c("Dow Jones", "NASDAQ","Dow Jones", "NASDAQ","Dow Jones", "NASDAQ")
 cities = c("Seattle", "Seattle", "Chicago", "Chicago", "New York City", "New York City")
 heatmap = data.frame(stocks, cities,value)
-heat_map = ggplot(heatmap, aes(stocks, cities, fill = round(value, digits =  4)*100)) +
+heat_map_extreme = ggplot(heatmap, aes(stocks, cities, fill = round(value, digits =  4)*100)) +
   geom_tile() + 
   geom_text(aes(label = round(value, digits = 4)*100)) +
-  ggtitle("Frequency of Overlapping Extreme Values") +
+  ggtitle("Frequency of Overlapping Extreme Values for Temperature and Stock Price") +
   scale_fill_gradient("Frequency as %",low = "orange", high = "red") + 
+  xlab("Stocks") + 
+  ylab("Cities")
+#remakes variables
+df$dow_extreme = ifelse(df$dow_jones_delta > quantile(df$dow_jones_delta, na.rm = T, probs = .90) ,1,0)
+df$nasdaq_extreme = ifelse(df$nasdaq_delta > quantile(df$nasdaq_delta, na.rm = T, probs = .90),1,0)
+df$chicago_extreme = ifelse(df$chicago_delta_temp > quantile(df$chicago_delta_temp, na.rm = T, probs = .90) ,1,0)
+df$seattle_extreme = ifelse(df$seattle_delta_temp > quantile(df$seattle_delta_temp, na.rm = T, probs = .90) ,1,0)
+df$nyc_extreme = ifelse(df$nyc_delta_temp > quantile(df$nyc_delta_temp, na.rm = T, probs = .90) ,1,0)
+tempdf = df %>% 
+  select(dow_extreme,nasdaq_extreme,seattle_extreme,chicago_extreme,nyc_extreme)
+sum(tempdf$nasdaq_extreme, na.rm = T)
+
+value = c(table(tempdf$dow_extreme, tempdf$seattle_extreme)[4] /sum(tempdf$nasdaq_extreme, na.rm = T))
+value = append(value, table(tempdf$nasdaq_extreme, tempdf$seattle_extreme)[4] /sum(tempdf$nasdaq_extreme, na.rm = T))
+value = append(value, table(tempdf$dow_extreme, tempdf$chicago_extreme)[4] /sum(tempdf$nasdaq_extreme, na.rm = T))
+value = append(value, table(tempdf$nasdaq_extreme, tempdf$chicago_extreme)[4] /sum(tempdf$nasdaq_extreme, na.rm = T))
+value = append(value, table(tempdf$dow_extreme, tempdf$nyc_extreme)[4] /sum(tempdf$nasdaq_extreme, na.rm = T))
+value = append(value, table(tempdf$nasdaq_extreme, tempdf$nyc_extreme)[4] /sum(tempdf$nasdaq_extreme, na.rm = T))
+
+stocks = c("Dow Jones", "NASDAQ","Dow Jones", "NASDAQ","Dow Jones", "NASDAQ")
+cities = c("Seattle", "Seattle", "Chicago", "Chicago", "New York City", "New York City")
+heatmap = data.frame(stocks, cities,value)
+heat_map_highs = ggplot(heatmap, aes(stocks, cities, fill = round(value, digits =  4)*100)) +
+  geom_tile() + 
+  geom_text(aes(label = round(value, digits = 4)*100)) +
+  ggtitle("Frequency of Overlapping Extreme Values for Temperature and Stock Price") +
+  scale_fill_gradient("Frequency as %",low = "orange", high = "red") + 
+  xlab("Stocks") + 
+  ylab("Cities")
+# remakes one more time for lows
+df$dow_extreme = ifelse(df$dow_jones_delta < quantile(df$dow_jones_delta, na.rm = T, probs = .10) ,1,0)
+df$nasdaq_extreme = ifelse(df$nasdaq_delta < quantile(df$nasdaq_delta, na.rm = T, probs = .10),1,0)
+df$chicago_extreme = ifelse(df$chicago_delta_temp < quantile(df$chicago_delta_temp, na.rm = T, probs = .10) ,1,0)
+df$seattle_extreme = ifelse(df$seattle_delta_temp < quantile(df$seattle_delta_temp, na.rm = T, probs = .10) ,1,0)
+df$nyc_extreme = ifelse(df$nyc_delta_temp < quantile(df$nyc_delta_temp, na.rm = T, probs = .10) ,1,0)
+tempdf = df %>% 
+  select(dow_extreme,nasdaq_extreme,seattle_extreme,chicago_extreme,nyc_extreme)
+sum(tempdf$nasdaq_extreme, na.rm = T)
+
+value = c(table(tempdf$dow_extreme, tempdf$seattle_extreme)[4] /sum(tempdf$nasdaq_extreme, na.rm = T))
+value = append(value, table(tempdf$nasdaq_extreme, tempdf$seattle_extreme)[4] /sum(tempdf$nasdaq_extreme, na.rm = T))
+value = append(value, table(tempdf$dow_extreme, tempdf$chicago_extreme)[4] /sum(tempdf$nasdaq_extreme, na.rm = T))
+value = append(value, table(tempdf$nasdaq_extreme, tempdf$chicago_extreme)[4] /sum(tempdf$nasdaq_extreme, na.rm = T))
+value = append(value, table(tempdf$dow_extreme, tempdf$nyc_extreme)[4] /sum(tempdf$nasdaq_extreme, na.rm = T))
+value = append(value, table(tempdf$nasdaq_extreme, tempdf$nyc_extreme)[4] /sum(tempdf$nasdaq_extreme, na.rm = T))
+
+stocks = c("Dow Jones", "NASDAQ","Dow Jones", "NASDAQ","Dow Jones", "NASDAQ")
+cities = c("Seattle", "Seattle", "Chicago", "Chicago", "New York City", "New York City")
+heatmap = data.frame(stocks, cities,value)
+heat_map_lows = ggplot(heatmap, aes(stocks, cities, fill = round(value, digits =  4)*100)) +
+  geom_tile() + 
+  geom_text(aes(label = round(value, digits = 4)*100)) +
+  ggtitle("Frequency of Overlapping Extreme Values for Temperature and Stock Price") +
+  scale_fill_gradient("Frequency as %",low = "deepskyblue", high = "yellow") + 
   xlab("Stocks") + 
   ylab("Cities")
 
