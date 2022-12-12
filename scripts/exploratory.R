@@ -106,13 +106,17 @@ for(i in 1:11){df1 = df1[-1,]}
 # regraphes with the moving average
 # for temp
 ma_temp_plot = ggplot(data = df1, aes(x = datetime)) +
-  geom_line(aes(y = seattle_matemp), color = "magenta") +
-  geom_line(aes(y = chicago_matemp), color = "darkred") +
-  geom_line(aes(y = nyc_matemp), color = "steelblue") + 
+  geom_line(aes(y = seattle_matemp, color = "Seattle")) +
+  geom_line(aes(y = chicago_matemp, color = "Chicago")) +
+  geom_line(aes(y = nyc_matemp, color = "NYC")) + 
   ggtitle("Mean Average of Tempurature") + 
   labs(subtitle = "Over Time") + 
   xlab("Date") + 
-  ylab("Degrees Fahrenheit")
+  ylab("Degrees Fahrenheit") + 
+  scale_color_manual(name = "City", values = c("Seattle" = "magenta", 
+                                               "Chicago" = "darkred",
+                                               "NYC" = "steelblue"))
+
 # precipitaion cover
 ma_cloud_plot = ggplot(data = df1, aes(x = datetime)) +
   geom_line(aes(y = seattle_macloud), color = "magenta") +
@@ -124,13 +128,16 @@ ma_cloud_plot = ggplot(data = df1, aes(x = datetime)) +
   ylab("Percent Percipitation Cover")
 # and for cloud cover
 ma_cloud_plot = ggplot(data = df1, aes(x = datetime)) +
-  geom_line(aes(y = seattle_macloud), color = "magenta") +
-  geom_line(aes(y = chicago_macloud), color = "darkred") +
-  geom_line(aes(y = nyc_macloud), color = "steelblue") + 
+  geom_line(aes(y = seattle_macloud, color = "Seattle")) +
+  geom_line(aes(y = chicago_macloud, color = "Chicago")) +
+  geom_line(aes(y = nyc_macloud, color = "NYC")) + 
   ggtitle("Mean Average of Cloud Cover") + 
   labs(subtitle = "Over Time") + 
   xlab("Date") + 
-  ylab("Percent Cloud Cover")
+  ylab("Percent Cloud Cover") + 
+  scale_color_manual(name = "City", values = c("Seattle" = "magenta", 
+                                               "Chicago" = "darkred",
+                                               "NYC" = "steelblue"))
 
 ### graphing indices 
 # dow jones
@@ -170,21 +177,17 @@ df_summer = df %>%
 
 # seasonal comparisons
 # spring temp on Dow Jones
-dow_plot_spring = ggplot(data = df_spring, aes(x = datetime)) + 
-  geom_line(aes(y = dow_jones), color = "green") + 
-  ggtitle("Dow Jones Index") + 
-  labs(subtitle = "Spring 2021") + 
-  xlab("Date") + 
-  ylab("US Dollars")
-
 ma_temp_plot_spring = ggplot(data = df_spring, aes(x = datetime)) +
-  geom_line(aes(y = seattle_matemp), color = "darkmagenta") +
-  geom_line(aes(y = chicago_matemp), color = "darkred") +
-  geom_line(aes(y = nyc_matemp), color = "steelblue") + 
+  geom_line(aes(y = seattle_matemp, color = "Seattle")) +
+  geom_line(aes(y = chicago_matemp, color = "Chicago")) +
+  geom_line(aes(y = nyc_matemp, color = "NYC")) + 
   ggtitle("Mean Average of Tempurature") + 
   labs(subtitle = "Spring 2021") + 
   xlab("Date") + 
-  ylab("Degrees Fahrenheit")
+  ylab("Degrees Fahrenheit") + 
+  scale_color_manual(name = "City", values = c("Seattle" = "magenta", 
+                                               "Chicago" = "darkred",
+                                               "NYC" = "steelblue"))
 
 # fall temp on Dow Jones
 dow_plot_fall = ggplot(data = df_fall, aes(x = datetime)) + 
@@ -195,13 +198,16 @@ dow_plot_fall = ggplot(data = df_fall, aes(x = datetime)) +
   ylab("US Dollars")
 
 ma_temp_plot_fall = ggplot(data = df_fall, aes(x = datetime)) +
-  geom_line(aes(y = seattle_matemp), color = "darkmagenta") +
-  geom_line(aes(y = chicago_matemp), color = "darkred") +
-  geom_line(aes(y = nyc_matemp), color = "steelblue") + 
+  geom_line(aes(y = seattle_matemp, color = "Seattle")) +
+  geom_line(aes(y = chicago_matemp, color = "Chicago")) +
+  geom_line(aes(y = nyc_matemp, color = "NYC")) + 
   ggtitle("Mean Average of Tempurature") + 
   labs(subtitle = "Fall 2021") + 
   xlab("Date") + 
-  ylab("Degrees Fahrenheit")
+  ylab("Degrees Fahrenheit") + 
+  scale_color_manual(name = "City", values = c("Seattle" = "magenta", 
+                                               "Chicago" = "darkred",
+                                               "NYC" = "steelblue"))
 
 # New graphs on daily changes
 dow_delta = ggplot(data = df, aes(x = datetime)) + 

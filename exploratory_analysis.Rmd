@@ -25,25 +25,36 @@ Below is the plot of temperature in US Financial Centers alongside the plot of t
 knitr::include_graphics("Images/tempxdow.png")
 ```
 
-Comparing these graphs side by side eliminated the idea that their was an obvious correlation between the two. Overall, the temperature plot fluxuates predictably through the seasons with no clear trend. The Dow Jones plot did not follow this yearly trajectory and instead, trended upwards for the first year and downwards for the second. It was likely that this movement could be explained by the nature of the Covid-19 and post Covid-19 economies. Regardless, there was no visual relationships between temperature in US Financial Centers and the Dow Jones Index.
+Comparing these graphs side by side eliminated the idea that their was an obvious correlation between the two. Overall, the temperature plot fluxuates predictably through the seasons with no clear trend. The Dow Jones plot did not follow this yearly trajectory and instead, trended upwards for the first year and downwards for the second. It was likely that this movement could be explained by the nature of the Covid-19 and post Covid-19 economies. Regardless, there was no visual relationships between year-round temperature in US Financial Centers and the Dow Jones Index.
 
+This opened up the door for exploring how the temperature changes in the different seasons could lead to changes in the Dow Jones Index. As temperatures rose in the spring, it was possible that this had some effect on the mood of people working in large financial centers and thus changed the trajectory of the stocks within the Dow Jones Index. 
 
-The next thought we had was to see if this relationship presented itself through the seasons. The idea behind this was that in Spring, the temperatures are rising which might make people happier and companies more productive. We created 4 seasonal factor variables for the spring of 2021 through the winter of 2021/22. There seems to be a very strong relationship in the trend of the Dow Jones and the trend of temperature for the three cities. It is extremely likely that there are many unaccounted for factors which promote economic growth in the spring so this is not a rock-solid takeaway. Never the less, it could warrant more attention.
-
-```{r}
-#ma_temp_plot_spring + dow_plot_spring
+```{r echo = FALSE, fig.align='center', out.width = '100%'}
+knitr::include_graphics("Images/tempxdow_spring.png")
 ```
 
-Similarly, we wanted to examine the Dow Jones and temperature over the course of the Fall. In looking at the two graphs, there does not seem to be a cut and dry relationship like the one we saw in Spring. The Dow Jones experiences high volatility and a possible upwards trend while the temperature steadily drops. 
+The 10-day mean average of temperatures in the three financial centers rose steadily for the entirety of the Spring of 2021. The Dow Jones Index also rose but only until June when it suddenly plummeted. The graphs seemed to lineup well in terms of trend but with how many unaccounted for factors were surely present, it was impossible to make a causal inference one way or the other. 
 
-```{r}
-#ma_temp_plot_fall + dow_plot_fall
+The same process was implemented for data spanning the Fall of 2021.
+
+```{r echo = FALSE, fig.align='center', out.width = '100%'}
+knitr::include_graphics("Images/tempxdow_fall.png")
 ```
 
-Lastly, we wanted to explore if cloud cover over New York City was a predictor of the NASDAQ. The idea being that the more gloomy a day is in the trading capital of the world, the more likely it is that stock prices will go down. In reality, there doesn't seem to be a relationship between the two that is readily apparent. The large spike in cloud cover around the winter does seem to lineup with the peak value of the NASDAQ around the same time but without an econometric analysis, we cannot say whether or not this is true. 
+The 10-day mean average of temperatures in the three financial centers fell steadily as time went on with little in the way of volatility. This was counter to the behavior of the Dow Jones Index over that same period of time. There was no clear overall trend in its movements but it saw a lot of movement that went unexplained when comparing it to the graph of temperature. For this reason, there was no causal effect inferred between temperature in the Fall and the Dow Jones Index. 
 
-```{r}
-#ma_cloud_plot_nyc + ndaq_plot
+Another weather variable that could effect the peoples' emotions was cloud cover. The 10-day mean average daily cloud cover in each of the three financial centers in the US was charted from October 2020 to October 2022 alongside the daily close of the NASDAQ index over the same period of time. The cloud cover for each city was plotted as the actual daily % cloud cover as well as the smoothed % cloud cover whereas only the daily closing values of the NASDAQ were plotted. 
+
+```{r echo = FALSE, fig.align='center', out.width = '100%'}
+knitr::include_graphics("Images/cloudxndaq.png")
+```
+
+The smoothed lines of percent cloud cover don't seem to show a distinguishable trend. This is certainly the case when comparing them to the plot of NASDAQ closing values. Because of this, no causal effect between cloud cover in US financial centers and the NASDAQ could be determined. 
+
+
+
+```{r echo = FALSE, fig.align='center', out.width = '100%'}
+knitr::include_graphics("Images/heat_map_highs.png")
 ```
 
 **Conclusion**
