@@ -32,9 +32,9 @@ temp_plot1 = ggplot(data = df, aes(x = datetime)) +
   ggtitle("Tempurature of US Financial Centers")
 #cloud cover
 cloud_plot1 = ggplot(data = df, aes(x = datetime)) +
-  geom_line(aes(y = seattle_cloudcover, color = "Seattle"), alpha = 1) +
+  geom_line(aes(y = seattle_cloudcover, color = "Seattle"), alpha = .3) +
   geom_line(aes(y = chicago_cloudcover, color = "Chicago"), alpha = 0.3) +
-  geom_line(aes(y = nyc_cloudcover, color = "NYC"), alpha = 0.3) + 
+  geom_line(aes(y = nyc_cloudcover, color = "NYC"), alpha = 1) + 
   geom_smooth(aes(y = nyc_cloudcover),span = 0.3, color = "steelblue") +
   geom_smooth(aes(y = chicago_cloudcover),span = 0.3, color = "darkred") +
   geom_smooth(aes(y = seattle_cloudcover),span = 0.3, color = "magenta") +
