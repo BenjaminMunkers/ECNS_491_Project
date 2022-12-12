@@ -207,10 +207,13 @@ ma_temp_plot_fall = ggplot(data = df_fall, aes(x = datetime)) +
 dow_delta = ggplot(data = df, aes(x = datetime)) + 
   geom_line(aes(y = dow_jones_delta), color = "purple") +
   geom_hline(yintercept = quantile(df$dow_jones_delta, na.rm = T, probs = .9), linetype = "dashed", color = "black") +
+  geom_hline(yintercept = quantile(df$dow_jones_delta, na.rm = T, probs = .1), linetype = "dashed", color = "black") +
   xlab("Date") +
   ylab("Daily Change") +
   ggtitle("Dow Jones Daily Change")
 nasdaq_delta = ggplot(data = df, aes(x = datetime)) + 
+  geom_hline(yintercept = quantile(df$nasdaq_delta, na.rm = T, probs = .9), linetype = "dashed", color = "black") +
+  geom_hline(yintercept = quantile(df$nasdaq_delta, na.rm = T, probs = .1), linetype = "dashed", color = "black") +
   geom_line(aes(y = nasdaq_delta), color = "purple") +
   xlab("Date") +
   ylab("Daily Change") +
@@ -235,7 +238,7 @@ value = append(value, table(tempdf$nasdaq_extreme, tempdf$nyc_extreme)[4] /sum(t
 stocks = c("Dow Jones", "NASDAQ","Dow Jones", "NASDAQ","Dow Jones", "NASDAQ")
 cities = c("Seattle", "Seattle", "Chicago", "Chicago", "New York City", "New York City")
 heatmap = data.frame(stocks, cities,value)
-ggplot(heatmap, aes(stocks, cities, fill = round(value, digits =  4)*100)) +
+heat_map = ggplot(heatmap, aes(stocks, cities, fill = round(value, digits =  4)*100)) +
   geom_tile() + 
   geom_text(aes(label = round(value, digits = 4)*100)) +
   ggtitle("Frequency of Overlapping Extreme Values") +
